@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Fresh Pori</title>
+    <style>
+        :root {
+            --red: #d62828;
+            --dark: #1f1f1f;
+            --dark-soft: #2a2a2a;
+            --gold: #f7c948;
+            --cream: #f9f2e7;
+            --white: #ffffff;
+            --muted: #6e6a67;
+            --shadow: 0 18px 45px rgba(24, 18, 14, 0.16);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--cream);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: min(1120px, calc(100% - 2rem));
+            margin: 0 auto;
+        }
+
+        .topbar {
+            background: rgba(31, 31, 31, 0.95);
+            color: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .brand span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.95rem;
+            color: #f2f2f2;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 1.6rem;
+            border-radius: 999px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            background: #bb1d1d;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255,255,255,0.7);
+        }
+
+        .hero {
+            background:
+                linear-gradient(rgba(17, 17, 17, 0.45), rgba(17, 17, 17, 0.5)),
+                url('https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            color: var(--white);
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            gap: 3rem;
+            padding: 4rem 0;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            padding: 0.45rem 0.9rem;
+            background: rgba(247, 201, 73, 0.15);
+            border: 1px solid rgba(247, 201, 73, 0.5);
+            border-radius: 999px;
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            line-height: 1.05;
+            margin: 0 0 1rem;
+        }
+
+        .hero p {
+            font-size: 1.08rem;
+            color: rgba(255,255,255,0.85);
+            max-width: 600px;
+            margin-bottom: 1.75rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-card {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 22px;
+            padding: 1.5rem;
+            backdrop-filter: blur(8px);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-card h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .mini-stat {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.18);
+            font-size: 0.95rem;
+        }
+
+        .mini-stat:last-child {
+            border-bottom: none;
+        }
+
+        .mini-stat strong {
+            color: var(--gold);
+            font-size: 1.15rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 3vw, 3rem);
+            margin: 0 0 0.75rem;
+        }
+
+        .section-header p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .features {
+            background: #fff;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature {
+            background: var(--cream);
+            border-radius: 22px;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.04);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: rgba(214, 40, 40, 0.1);
+            color: var(--red);
+            display: grid;
+            place-items: center;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            margin: 0 0 0.5rem;
+            font-size: 1.35rem;
+        }
+
+        .feature p {
+            color: var(--muted);
+            margin: 0;
+        }
+
+        .pizza-menu {
+            background: var(--cream);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pizza-card {
+            background: var(--white);
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 14px 28px rgba(31, 31, 31, 0.08);
+        }
+
+        .pizza-card img {
+            height: 220px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .pizza-body {
+            padding: 1.25rem 1.2rem 1.5rem;
+        }
+
+        .pizza-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .pizza-card h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .price {
+            font-weight: 700;
+            color: var(--red);
+        }
+
+        .pizza-card p {
+            margin: 0 0 1rem;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .menu-tag {
+            display: inline-block;
+            padding: 0.38rem 0.7rem;
+            border-radius: 999px;
+            background: rgba(247, 201, 73, 0.18);
+            color: #7a5b00;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .about {
+            background: #fff;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .about-image {
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .about-image img {
+            width: 100%;
+            min-height: 500px;
+            object-fit: cover;
+        }
+
+        .about-text h2 {
+            font-size: clamp(2rem, 3vw, 2.8rem);
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            color: var(--muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .check-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0 0;
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .check-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .check {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(214, 40, 40, 0.12);
+            color: var(--red);
+            display: inline-grid;
+            place-items: center;
+            font-weight: 700;
+        }
+
+        .testimonial-section {
+            background: linear-gradient(180deg, #1f1f1f 0%, #2a2a2a 100%);
+            color: var(--white);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        .quote {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 22px;
+            padding: 1.6rem;
+        }
+
+        .quote p {
+            margin-top: 0;
+            color: rgba(255,255,255,0.83);
+        }
+
+        .person {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), #ffdf7a);
+            color: var(--dark);
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+        }
+
+        .cta {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .cta-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 0;
+        }
+
+        .cta h3 {
+            margin: 0;
+            font-size: clamp(1.5rem, 2vw, 2.3rem);
+        }
+
+        .footer {
+            background: #171717;
+            color: rgba(255,255,255,0.8);
+            padding: 2rem 0;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 900px) {
+            .hero-inner,
+            .about-grid,
+            .menu-grid,
+            .features-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .features-grid,
+            .menu-grid,
+            .testimonial-grid,
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                min-height: 620px;
+            }
+
+            .cta-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="container nav">
+            <div class="brand">Pizza <span>Fresh</span> Pori</div>
+            <nav class="nav-links" aria-label="Päävalikko">
+                <a href="#menu">Menu</a>
+                <a href="#about">Meistä</a>
+                <a href="#reviews">Arvostelut</a>
+                <a href="#contact">Yhteystiedot</a>
+            </nav>
+            <a href="#contact" class="btn btn-primary">Tilaa nyt</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-inner">
+                <div>
+                    <span class="eyebrow">Raikasta pizzaa joka päivä</span>
+                    <h1>Herkullinen pizza, joka tekee päivän paremmin.</h1>
+                    <p>
+                        Pizzamme valmistetaan tuoreista raaka-aineista, hapanjuuresta ja täydellisestä mozzarella-kastikkeesta.
+                        Tilaa kotiin, noutoon tai tule käymään ravintolassa.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#menu" class="btn btn-primary">Katso menu</a>
+                        <a href="#about" class="btn btn-secondary">Lue lisää</a>
+                    </div>
+                </div>
+
+                <div class="hero-card" aria-label="Pizza-tilastot">
+                    <h3>Populaarimmat pizzat</h3>
+                    <div class="mini-stat">
+                        <span>Margherita</span>
+                        <strong>13€</strong>
+                    </div>
+                    <div class="mini-stat">
+                        <span>BBQ Chicken</span>
+                        <strong>16€</strong>
+                    </div>
+                    <div class="mini-stat">
+                        <span>Vegan Deluxe</span>
+                        <strong>15€</strong>
+                    </div>
+                    <div class="mini-stat">
+                        <span>Toimitusaika</span>
+                        <strong>25-30 min</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Miksi valita meidät?</h2>
+                    <p>Tuoreus, maku ja nopea palvelu ovat osa jokaisen pizzamme periaatetta.</p>
+                </div>
+
+                <div class="features-grid">
+                    <article class="feature">
+                        <div class="feature-icon">🥕</div>
+                        <h3>Tuoreet raaka-aineet</h3>
+                        <p>Valitsemme kaiken tuoreimmista lähteistä, jotta maku on aina täydellinen ja raikas.</p>
+                    </article>
+
+                    <article class="feature">
+                        <div class="feature-icon">🔥</div>
+                        <h3>Herkullinen uuni</h3>
+                        <p>Perinteinen uunipaisto tekee pizzasta rapean reunasta sekä täyteläisen makuisen.</p>
+                    </article>
+
+                    <article class="feature">
+                        <div class="feature-icon">🚚</div>
+                        <h3>Nopea toimitus</h3>
+                        <p>Tilauksesi valmistuu nopeasti, ja toimitus tavoittaa sinut alle puolessa tunnissa.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="pizza-menu" id="menu">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Suosituimmat pizzat</h2>
+                    <p>Kaikki valmistetaan käsin ja tuoreista aineksista juuri tilauksen yhteydessä.</p>
+                </div>
+
+                <div class="menu-grid">
+                    <article class="pizza-card">
+                        <img src="https://images.unsplash.com/photo-1548365328-9f547fb9587c?auto=format&fit=crop&w=700&q=80" alt="Margherita pizza">
+                        <div class="pizza-body">
+                            <div class="pizza-meta">
+                                <h3>Margherita</h3>
+                                <span class="price">13€</span>
+                            </div>
+                            <p>Tomat, basilika, mozzarella ja oliiviöljy.</p>
+                            <span class="menu-tag">Klassikko</span>
+                        </div>
+                    </article>
+
+                    <article class="pizza-card">
+                        <img src="https://images.unsplash.com/photo-1552539618-7eec9b4d9f1d?auto=format&fit=crop&w=700&q=80" alt="Pepperoni pizza">
+                        <div class="pizza-body">
+                            <div class="pizza-meta">
+                                <h3>Pepperoni</h3>
+                                <span class="price">16€</span>
+                            </div>
+                            <p>Mausteinen pepperoni, mozzarella ja tomaattikastike.</p>
+                            <span class="menu-tag">Suosittu</span>
+                        </div>
+                    </article>
+
+                    <article class="pizza-card">
+                        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=80" alt="Hawaiian pizza">
+                        <div class="pizza-body">
+                            <div class="pizza-meta">
+                                <h3>Hawaiian</h3>
+                                <span class="price">15€</span>
+                            </div>
+                            <p>Kanat, ananas, sipuli ja pehmeä mozzarella.</p>
+                            <span class="menu-tag">Makea</span>
+                        </div>
+                    </article>
+
+                    <article class="pizza-card">
+                        <img src="https://images.unsplash.com/photo-1528137871618-79d2761e3fd5?auto=format&fit=crop&w=700&q=80" alt="Vegan pizza">
+                        <div class="pizza-body">
+                            <div class="pizza-meta">
+                                <h3>Vegaaninen Deluxe</h3>
+                                <span class="price">15€</span>
+                            </div>
+                            <p>Paprika, oliivit, sipuli, herkkusieni ja vegaaninen juusto.</p>
+                            <span class="menu-tag">Kasvis</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="about" id="about">
+            <div class="container about-grid">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1552539618-7eec9b4d9f1d?auto=format&fit=crop&w=1200&q=80" alt="Pizzerian keittiö">
+                </div>
+                <div class="about-text">
+                    <span class="eyebrow" style="color: var(--red); background: rgba(214,40,40,0.08); border-color: rgba(214,40,40,0.2);">Meidän tarinamme</span>
+                    <h2>Pizza, joka on tehty rakkaudella.</h2>
+                    <p>
+                        Pizza Fresh Pori aloitti pienenä perheyrityksenä ja on kasvanut paikalliseksi suosikiksi.
+                        Pizzamme valmistetaan aina käsin ja jokainen annos tehdään juuri ennen toimitusta.
+                    </p>
+                    <p>
+                        Yhdistämme italialaisen perinteen ja paikallisen tunnelman, jotta jokaisesta pizzasta tulee sekä maukas että muistettava kokemus.
+                    </p>
+
+                    <ul class="check-list">
+                        <li><span class="check">✓</span> Käsin valmistetut pizzat</li>
+                        <li><span class="check">✓</span> Luotettava toimitus</li>
+                        <li><span class="check">✓</span> Tuoreet suola- ja mausteseokset</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonial-section" id="reviews">
+            <div class="container">
+                <div class="section-header" style="color: var(--white);">
+                    <h2>Asiakkaiden palautetta</h2>
+                    <p>Jokaisen pizzan taustalla on tyytyväinen asiakas.</p>
+                </div>
+
+                <div class="testimonial-grid">
+                    <article class="quote">
+                        <p>“Makua on todella paljon, ja täytteet tuntuvat aina tuoreilta. Paras pizza Porissa.”</p>
+                        <div class="person">
+                            <div class="avatar">M</div>
+                            <div>
+                                <strong>Matti</strong><br>
+                                <small>Asiakas</small>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="quote">
+                        <p>“Nopea toimitus, ihana tunnelma ja makea, mutta ei liian makea Hawaiian. Erinomaisen hyvä.”</p>
+                        <div class="person">
+                            <div class="avatar">A</div>
+                            <div>
+                                <strong>Aino</strong><br>
+                                <small>Asiakas</small>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="quote">
+                        <p>“Tiedän, että täällä saa aina hyvän pizzan. Suosittelen erityisesti Margheritaa.”</p>
+                        <div class="person">
+                            <div class="avatar">J</div>
+                            <div>
+                                <strong>Janne</strong><br>
+                                <small>Asiakas</small>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta" id="contact">
+            <div class="container cta-inner">
+                <div>
+                    <h3>Tilaa pizza juuri nyt</h3>
+                </div>
+                <div>
+                    <a href="tel:+358401234567" class="btn btn-secondary">Soita: +358 40 123 4567</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div>© 2026 Pizza Fresh Pori</div>
+            <div>Rantakatu 12, Pori • Auki ma-su 11:00–22:00</div>
+        </div>
+    </footer>
+</body>
+</html>
